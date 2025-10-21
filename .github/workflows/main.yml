@@ -1,0 +1,24 @@
+name: Deploy to OCI Compute
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to OCI Instance
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.OCI_PUBLIC_IP }}
+          username: ${{ secrets.OCI_USERNAME }}
+          key: ${{ secrets.OCI_SSH_KEY }}
+          script: |
+            chmod +x ~/todo-app/deploy.sh || true
+            ~/todo-app/deploy.sh
+
