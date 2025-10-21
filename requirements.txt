@@ -1,0 +1,3 @@
+python-fasthtml
+monsterui
+sqlite3-binary
